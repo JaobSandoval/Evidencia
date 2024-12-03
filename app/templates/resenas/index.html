@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Reseñas{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>
+            <i class="fas fa-star me-2"></i>Reseñas
+        </h2>
+    </div>
+    <div class="col text-end">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resenaModal">
+            <i class="fas fa-plus me-2"></i>Nueva Reseña
+        </button>
+    </div>
+</div>
+
+<!-- Filtros -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form id="searchForm" class="row g-3">
+            <div class="col-md-4">
+                <label for="libro_id" class="form-label">Libro</label>
+                <select class="form-select" id="libro_id" name="libro_id">
+                    <option value="">Todos los libros</option>
+                    {% for libro in libros %}
+                    <option value="{{ libro._id }}">{{ libro.titulo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="usuario_id" class="form-label">Usuario</label>
+                <select class="form-select" id="usuario_id" name="usuario_id">
+                    <option value="">Todos los usuarios</option>
+                    {% for usuario in usuarios %}
+                    <option value="{{ usuario._id }}">{{ usuario.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="calificacion" class="form-label">Calificación</label>
+                <select class="form-select" id="calificacion" name="calificacion">
+                    <option value="">Todas</option>
+                    <option value="5">5 estrellas</option>
+                    <option value="4">4 estrellas o más</option>
+                    <option value="3">3 estrellas o más</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search me-2"></i>Buscar
+                </button>
+                <button type="reset" class="btn btn-secondary">
+                    <i class="fas fa-undo me-2"></i>Limpiar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Lista de Reseñas -->
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table" id="resenasTable">
+                <thead>
+                    <tr>
+                        <th>Libro</th>
+                        <th>Usuario</th>
+                        <th>Calificación</th>
+                        <th>Comentario</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for resena in resenas %}
+                    <tr>
+                        <td>{{ resena.libro_titulo }}</td>
+                        <td>{{ resena.usuario_nombre }}</td>
+                        <td>
+                            <div class="text-warning">
+                                {% for _ in range(resena.calificacion) %}
+                                <i class="fas fa-star"></i>
+                                {% endfor %}
+                                {% for _ in range(5 - resena.calificacion) %}
+                                <i class="far fa-star"></i>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>{{ resena.comentario }}</td>
+                        <td>{{ resena.fecha.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-primary" onclick="editarResena('{{ resena._id }}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="eliminarResena('{{ resena._id }}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Crear/Editar Reseña -->
+<div class="modal fade" id="resenaModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">
+                    <i class="fas fa-star me-2"></i>Nueva Reseña
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="resenaForm">
+                    <input type="hidden" id="resena_id">
+                    <div class="mb-3">
+                        <label for="libro_id" class="form-label">Libro</label>
+                        <select class="form-select" id="libro_modal_id" name="libro_id" required>
+                            <option value="">Seleccione un libro</option>
+                            {% for libro in libros %}
+                            <option value="{{ libro._id }}">{{ libro.titulo }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="usuario_id" class="form-label">Usuario</label>
+                        <select class="form-select" id="usuario_modal_id" name="usuario_id" required>
+                            <option value="">Seleccione un usuario</option>
+                            {% for usuario in usuarios %}
+                            <option value="{{ usuario._id }}">{{ usuario.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Calificación</label>
+                        <div class="rating">
+                            {% for i in range(5, 0, -1) %}
+                            <input type="radio" name="calificacion" value="{{ i }}" id="star{{ i }}">
+                            <label for="star{{ i }}"><i class="far fa-star"></i></label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comentario" class="form-label">Comentario</label>
+                        <textarea class="form-control" id="comentario" name="comentario" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="guardarResena()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/resenas.js') }}"></script>
+{% endblock %}

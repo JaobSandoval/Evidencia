@@ -1,0 +1,192 @@
+<!-- usuarios/form.html -->
+<div class="modal fade" id="usuarioModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Nuevo Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="usuarioForm">
+                    <input type="hidden" id="usuario_id" name="usuario_id">
+                    
+                    <!-- Campo Nombre -->
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        <div class="invalid-feedback">
+                            El nombre debe tener al menos 2 caracteres
+                        </div>
+                    </div>
+                    
+                    <!-- Campo Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">
+                            Por favor ingrese un email válido
+                        </div>
+                    </div>
+                    
+                    <!-- Campo Teléfono -->
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                        <div class="invalid-feedback">
+                            Por favor ingrese un teléfono válido
+                        </div>
+                    </div>
+                    
+                    <!-- Campo Dirección -->
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección</label>
+                        <textarea class="form-control" id="direccion" name="direccion" rows="3" required></textarea>
+                        <div class="invalid-feedback">
+                            Por favor ingrese una dirección válida
+                        </div>
+                    </div>
+                    
+                    <!-- Campo Estado (solo visible en edición) -->
+                    <div class="mb-3" id="estadoContainer" style="display: none;">
+                        <label for="activo" class="form-label">Estado</label>
+                        <select class="form-select" id="activo" name="activo">
+                            <option value="true">Activo</option>
+                            <option value="false">Inactivo</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Cancelar">Cancelar</button>
+                <button type="submit" form="usuarioForm" class="btn btn-primary" title="Guardar usuario">
+                    <i class="fas fa-save me-2"></i>Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal de Detalles del Usuario -->
+<div class="modal fade" id="detallesModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-user-circle me-2"></i>Detalles del Usuario
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="border-bottom pb-2">Información Personal</h6>
+                        <dl class="row">
+                            <dt class="col-sm-4">Nombre:</dt>
+                            <dd class="col-sm-8" id="detalle-nombre"></dd>
+                            
+                            <dt class="col-sm-4">Email:</dt>
+                            <dd class="col-sm-8" id="detalle-email"></dd>
+                            
+                            <dt class="col-sm-4">Teléfono:</dt>
+                            <dd class="col-sm-8" id="detalle-telefono"></dd>
+                            
+                            <dt class="col-sm-4">Dirección:</dt>
+                            <dd class="col-sm-8" id="detalle-direccion"></dd>
+                            
+                            <dt class="col-sm-4">Estado:</dt>
+                            <dd class="col-sm-8">
+                                <span id="detalle-estado" class="badge"></span>
+                            </dd>
+                            
+                            <dt class="col-sm-4">Registro:</dt>
+                            <dd class="col-sm-8" id="detalle-fecha-registro"></dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="border-bottom pb-2">Estadísticas</h6>
+                        <dl class="row">
+                            <dt class="col-sm-6">Préstamos Activos:</dt>
+                            <dd class="col-sm-6" id="detalle-prestamos-activos"></dd>
+                            
+                            <dt class="col-sm-6">Total Préstamos:</dt>
+                            <dd class="col-sm-6" id="detalle-total-prestamos"></dd>
+                            
+                            <dt class="col-sm-6">Reseñas:</dt>
+                            <dd class="col-sm-6" id="detalle-total-resenas"></dd>
+                            
+                            <dt class="col-sm-6">Multas Pendientes:</dt>
+                            <dd class="col-sm-6" id="detalle-multas-pendientes"></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Préstamos del Usuario -->
+<div class="modal fade" id="prestamosModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-book-reader me-2"></i>Préstamos del Usuario
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" id="prestamosTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="activos-tab" data-bs-toggle="tab" href="#prestamos-activos">
+                            Préstamos Activos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="historial-tab" data-bs-toggle="tab" href="#historial-prestamos">
+                            Historial de Préstamos
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content mt-3">
+                    <div class="tab-pane fade show active" id="prestamos-activos">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Libro</th>
+                                        <th>Fecha Préstamo</th>
+                                        <th>Fecha Devolución</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prestamos-activos-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="historial-prestamos">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Libro</th>
+                                        <th>Fecha Préstamo</th>
+                                        <th>Fecha Devolución</th>
+                                        <th>Fecha Devuelto</th>
+                                        <th>Multa</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historial-prestamos-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

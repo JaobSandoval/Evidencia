@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Biblioteca Digital{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>
+            <i class="fas fa-book-reader me-2"></i>Bienvenido a la Biblioteca Digital
+        </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-book fa-3x mb-3 text-primary"></i>
+                <h5 class="card-title">Libros</h5>
+                <p class="card-text">Gestiona el catálogo de libros</p>
+                <a href="{{ url_for('libros.index') }}" class="btn btn-primary">
+                    Ir a Libros
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-users fa-3x mb-3 text-success"></i>
+                <h5 class="card-title">Usuarios</h5>
+                <p class="card-text">Administra los usuarios</p>
+                <a href="{{ url_for('usuarios.index') }}" class="btn btn-success">
+                    Ir a Usuarios
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-handshake fa-3x mb-3 text-info"></i>
+                <h5 class="card-title">Préstamos</h5>
+                <p class="card-text">Gestiona los préstamos</p>
+                <a href="{{ url_for('prestamos.index') }}" class="btn btn-info">
+                    Ir a Préstamos
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-star fa-3x mb-3 text-warning"></i>
+                <h5 class="card-title">Reseñas</h5>
+                <p class="card-text">Ver reseñas de libros</p>
+                <a href="{{ url_for('resenas.index') }}" class="btn btn-warning">
+                    Ir a Reseñas
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-pen-fancy fa-3x mb-3 text-secondary"></i>
+                <h5 class="card-title">Autores</h5>
+                <p class="card-text">Gestiona los autores</p>
+                <a href="{{ url_for('autores.index') }}" class="btn btn-secondary">
+                    Ir a Autores
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-tags fa-3x mb-3 text-danger"></i>
+                <h5 class="card-title">Categorías</h5>
+                <p class="card-text">Administra las categorías</p>
+                <a href="{{ url_for('categorias.index') }}" class="btn btn-danger">
+                    Ir a Categorías
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

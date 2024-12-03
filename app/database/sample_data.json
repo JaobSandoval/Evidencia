@@ -1,0 +1,52 @@
+{
+    "usuarios": [
+        {
+            "nombre": "Ana Regina",
+            "email": "ana.regina@email.com",
+            "direccion": "Calle Principal 123",
+            "telefono": "555-0101",
+            "fechaRegistro": "2024-01-01",
+            "activo": true
+        },
+        {
+            "nombre": "Carlos Ruiz",
+            "email": "carlos.ruiz@email.com",
+            "direccion": "Avenida Central 456",
+            "telefono": "555-0102",
+            "fechaRegistro": "2024-01-02",
+            "activo": true
+        },
+        {
+            "nombre": "Norberto Lopez",
+            "email": "Norberto.lopez@email.com",
+            "direccion": "Plaza Mayor 789",
+            "telefono": "555-0103",
+            "fechaRegistro": "2024-01-03",
+            "activo": true
+        },
+        {
+            "nombre": "Juan Perez",
+            "email": "juan.perez@email.com",
+            "direccion": "Calle Secundaria 321",
+            "telefono": "555-0104",
+            "fechaRegistro": "2024-01-04",
+            "activo": true
+        },
+        {
+            "nombre": "Laura Torres",
+            "email": "laura.torres@email.com",
+            "direccion": "Avenida Principal 654",
+            "telefono": "555-0105",
+            "fechaRegistro": "2024-01-05",
+            "activo": true
+        },
+        {
+            "nombre": "Pedro Sanchez",
+            "email": "pedro.sanchez@email.com",
+            "direccion": "Calle Nueva 987",
+            "telefono": "555-0106",
+            "fechaRegistro": "2024-01-06",
+            "activo": true
+        }
+    ]
+}

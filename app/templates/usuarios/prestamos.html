@@ -1,0 +1,75 @@
+<!-- usuarios/prestamos.html -->
+<div class="modal fade" id="prestamosModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-book-reader me-2"></i>Préstamos del Usuario
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Tabs de navegación -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#prestamos-activos">
+                            Préstamos Activos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#historial-prestamos">
+                            Historial
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Contenido de los tabs -->
+                <div class="tab-content mt-3">
+                    <!-- Préstamos Activos -->
+                    <div class="tab-pane fade show active" id="prestamos-activos">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Libro</th>
+                                        <th>Fecha Préstamo</th>
+                                        <th>Fecha Devolución</th>
+                                        <th>Estado</th>
+                                        <th>Multa</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prestamos-activos-body">
+                                    <!-- Se llena dinámicamente con JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Historial de Préstamos -->
+                    <div class="tab-pane fade" id="historial-prestamos">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Libro</th>
+                                        <th>Fecha Préstamo</th>
+                                        <th>Fecha Devolución</th>
+                                        <th>Fecha Devuelto</th>
+                                        <th>Multa Pagada</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historial-prestamos-body">
+                                    <!-- Se llena dinámicamente con JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

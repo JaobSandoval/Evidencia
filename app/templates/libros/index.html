@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block title %}Libros{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>
+            <i class="fas fa-book me-2"></i>Gestión de Libros
+        </h2>
+    </div>
+    <div class="col text-end">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#libroModal">
+            <i class="fas fa-plus me-2"></i>Nuevo Libro
+        </button>
+    </div>
+</div>
+
+<!-- Filtros -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title mb-3">Filtros de búsqueda</h5>
+        <form id="searchForm" class="row g-3">
+            <div class="col-md-3">
+                <label for="tituloBusqueda" class="form-label">Título</label>
+                <input type="text" class="form-control" id="tituloBusqueda" name="titulo">
+            </div>
+            <div class="col-md-3">
+                <label for="autorBusqueda" class="form-label">Autor</label>
+                <select class="form-select" id="autorBusqueda" name="autor_id">
+                    <option value="">Todos</option>
+                    {% for autor in autores %}
+                    <option value="{{ autor._id }}">{{ autor.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="categoriaBusqueda" class="form-label">Categoría</label>
+                <select class="form-select" id="categoriaBusqueda" name="categoria_id">
+                    <option value="">Todas</option>
+                    {% for categoria in categorias %}
+                    <option value="{{ categoria._id }}">{{ categoria.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="disponibilidad" class="form-label">Disponibilidad</label>
+                <select class="form-select" id="disponibilidad" name="disponibilidad">
+                    <option value="">Todos</option>
+                    <option value="disponible">Disponibles</option>
+                    <option value="no_disponible">No Disponibles</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search me-2"></i>Buscar
+                </button>
+                <button type="reset" class="btn btn-secondary">
+                    <i class="fas fa-undo me-2"></i>Limpiar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Tabla de Libros -->
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped" id="librosTable">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Categoría</th>
+                        <th>ISBN</th>
+                        <th>Disponibles</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for libro in libros %}
+                    <tr>
+                        <td>{{ libro.titulo }}</td>
+                        <td>{{ libro.autor_nombre|default('Sin autor') }}</td>
+                        <td>{{ libro.categoria_nombre|default('Sin categoría') }}</td>
+                        <td>{{ libro.isbn }}</td>
+                        <td>
+                            <span class="badge {% if libro.disponibles > 0 %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ libro.disponibles }}/{{ libro.copias }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-info" onclick="verLibro('{{ libro._id }}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-primary" onclick="editarLibro('{{ libro._id }}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="eliminarLibro('{{ libro._id }}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Crear/Editar Libro -->
+<div class="modal fade" id="libroModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-book me-2"></i>
+                    <span id="modalTitle">Nuevo Libro</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="libroForm" onsubmit="return false;">
+                    <input type="hidden" id="libro_id">
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <label for="tituloLibro" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="tituloLibro" name="titulo" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="isbnLibro" class="form-label">ISBN</label>
+                            <input type="text" class="form-control" id="isbnLibro" name="isbn" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="autorLibro" class="form-label">Autor</label>
+                            <select class="form-select" id="autorLibro" name="autor_id" required>
+                                <option value="">Seleccione un autor</option>
+                                {% for autor in autores %}
+                                <option value="{{ autor._id }}">{{ autor.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="categoriaLibro" class="form-label">Categoría</label>
+                            <select class="form-select" id="categoriaLibro" name="categoria_id" required>
+                                <option value="">Seleccione una categoría</option>
+                                {% for categoria in categorias %}
+                                <option value="{{ categoria._id }}">{{ categoria.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="copiasLibro" class="form-label">Copias</label>
+                            <input type="number" class="form-control" id="copiasLibro" name="copias" min="1" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="fechaLibro" class="form-label">Fecha de Publicación</label>
+                            <input type="date" class="form-control" id="fechaLibro" name="fecha_publicacion" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="editorialLibro" class="form-label">Editorial</label>
+                            <input type="text" class="form-control" id="editorialLibro" name="editorial" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="guardarLibro()">
+                    <i class="fas fa-save me-2"></i>Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Ver Detalles -->
+<div class="modal fade" id="detallesModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-book me-2"></i>Detalles del Libro
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="border-bottom pb-2">Información General</h6>
+                        <dl class="row">
+                            <dt class="col-sm-4">Título:</dt>
+                            <dd class="col-sm-8" id="detalle-titulo"></dd>
+                            
+                            <dt class="col-sm-4">Autor:</dt>
+                            <dd class="col-sm-8" id="detalle-autor"></dd>
+                            
+                            <dt class="col-sm-4">Categoría:</dt>
+                            <dd class="col-sm-8" id="detalle-categoria"></dd>
+                            
+                            <dt class="col-sm-4">ISBN:</dt>
+                            <dd class="col-sm-8" id="detalle-isbn"></dd>
+                            
+                            <dt class="col-sm-4">Editorial:</dt>
+                            <dd class="col-sm-8" id="detalle-editorial"></dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="border-bottom pb-2">Estado</h6>
+                        <dl class="row">
+                            <dt class="col-sm-4">Copias:</dt>
+                            <dd class="col-sm-8" id="detalle-copias"></dd>
+                            
+                            <dt class="col-sm-4">Disponibles:</dt>
+                            <dd class="col-sm-8" id="detalle-disponibles"></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/libros.js') }}"></script>
+{% endblock %}

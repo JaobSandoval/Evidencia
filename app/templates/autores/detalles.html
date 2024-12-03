@@ -1,0 +1,78 @@
+<!-- autores/detalles.html -->
+<div class="modal fade" id="detallesModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-pen-fancy me-2"></i>Detalles del Autor
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="border-bottom pb-2">Información Personal</h6>
+                        <dl class="row">
+                            <dt class="col-sm-4">Nombre:</dt>
+                            <dd class="col-sm-8" id="detalle-nombre"></dd>
+                            
+                            <dt class="col-sm-4">Nacionalidad:</dt>
+                            <dd class="col-sm-8" id="detalle-nacionalidad"></dd>
+                            
+                            <dt class="col-sm-4">Fecha Nacimiento:</dt>
+                            <dd class="col-sm-8" id="detalle-fecha-nacimiento"></dd>
+                            
+                            <dt class="col-sm-4">Estado:</dt>
+                            <dd class="col-sm-8">
+                                <span id="detalle-estado" class="badge"></span>
+                            </dd>
+                        </dl>
+
+                        <h6 class="border-bottom pb-2 mt-4">Biografía</h6>
+                        <p id="detalle-biografia" class="text-justify"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="border-bottom pb-2">Estadísticas</h6>
+                        <dl class="row">
+                            <dt class="col-sm-6">Total de Libros:</dt>
+                            <dd class="col-sm-6" id="detalle-total-libros"></dd>
+                            
+                            <dt class="col-sm-6">Total de Copias:</dt>
+                            <dd class="col-sm-6" id="detalle-total-copias"></dd>
+                            
+                            <dt class="col-sm-6">Promedio Calificación:</dt>
+                            <dd class="col-sm-6">
+                                <div id="detalle-calificacion" class="text-warning"></div>
+                            </dd>
+                            
+                            <dt class="col-sm-6">Total Reseñas:</dt>
+                            <dd class="col-sm-6" id="detalle-total-resenas"></dd>
+                        </dl>
+
+                        <h6 class="border-bottom pb-2 mt-4">Libros del Autor</h6>
+                        <div class="table-responsive mt-3">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Año</th>
+                                        <th>Disponibles</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detalle-libros"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Cerrar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="editarAutor(currentAutorId)">
+                    <i class="fas fa-edit me-2"></i>Editar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

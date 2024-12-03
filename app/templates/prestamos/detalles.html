@@ -1,0 +1,48 @@
+<!-- prestamos/detalles.html -->
+<div class="modal fade" id="detallesModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-book-reader me-2"></i>Detalles del Préstamo
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="border-bottom pb-2">Información del Préstamo</h6>
+                        <dl class="row">
+                            <dt class="col-sm-4">Usuario:</dt>
+                            <dd class="col-sm-8" id="detalle-usuario"></dd>
+                            
+                            <dt class="col-sm-4">Libro:</dt>
+                            <dd class="col-sm-8" id="detalle-libro"></dd>
+                            
+                            <dt class="col-sm-4">Fecha Préstamo:</dt>
+                            <dd class="col-sm-8" id="detalle-fecha-prestamo"></dd>
+                            
+                            <dt class="col-sm-4">Fecha Devolución:</dt>
+                            <dd class="col-sm-8" id="detalle-fecha-devolucion"></dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="border-bottom pb-2">Estado</h6>
+                        <dl class="row">
+                            <dt class="col-sm-4">Estado:</dt>
+                            <dd class="col-sm-8">
+                                <span id="detalle-estado" class="badge"></span>
+                            </dd>
+                            
+                            <dt class="col-sm-4">Multa:</dt>
+                            <dd class="col-sm-8" id="detalle-multa"></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
